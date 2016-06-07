@@ -1,0 +1,59 @@
+---
+title: "spia"
+output: html_document
+---
+
+##Read in dataset
+```{r message = FALSE}
+library(SPIA)
+dataset_file = '/Users/karthik/Documents/bioinformatics_tsri/spia/pnas.csv'
+dataset = read.csv(dataset_file, as.is=T, header=T)
+```
+
+##Subset genes with log fold chagne > 0.6 and P value <= 0.05
+```{r}
+gene_list <- dataset$BPA > 0.6 & dataset$P.value <= 0.05
+subset <- dataset[gene_list,]
+```
+
+#SPIA
+```{r}
+tmp <- subset$BPA
+names(tmp) <- subset$EntrezGene
+res = spia(de=tmp, all=names(tmp), organism="mmu")
+dim(res)
+head(res)
+```
+
+##map2pathway function
+```{r}
+map2pathway = function(id.list, scopes='entrezgene', pathway.src="kegg", sep=', '){
+  pw.field = paste('pathway', pathway.src, sep=".")
+  res = queryMany(id.list, scopes=scopes, fields=pw.field)
+  format.pathway = function(one.res){
+    id = one.res$query
+    if (!is.null(one.res[[pw.field]])){
+      pw.names = paste(one.res[[pw.field]]$name, collapse=sep)
+      pw.ids = paste(one.res[[pw.field]]$id, collapse=sep)
+      return(c(id, pw.ids, pw.names))
+    }else{
+      return(c(id, NA, NA))
+    }
+  }
+ out = apply(as.data.frame(res), 1, format.pathway)
+ out = t(out)
+ colnames(out) <- c('id', paste(pathway.src, '.id', sep=''), paste(pathway.src, '.name', sep=''))
+ return(out)
+}
+```
+
+```{r message = FALSE}
+library(mygene)
+```
+```{r}
+p <- map2pathway(names(tmp), sep='<br>')
+p <- na.omit(p)
+dim(p)
+head(p)
+```
+

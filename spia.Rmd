@@ -10,6 +10,7 @@ dataset_file = '/Users/karthik/Documents/bioinformatics_tsri/spia/pnas.csv'
 dataset = read.csv(dataset_file, as.is=T, header=T)
 ```
 
+##Chemical used: BPA
 ##Subset genes with log fold chagne > 0.6 and P value <= 0.05
 ```{r}
 gene_list <- dataset$BPA > 0.6 & dataset$P.value <= 0.05

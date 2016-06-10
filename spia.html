@@ -125,6 +125,9 @@ $(document).ready(function () {
 dataset_file = '/Users/karthik/Documents/bioinformatics_tsri/spia/pnas.csv'
 dataset = read.csv(dataset_file, as.is=T, header=T)</code></pre>
 </div>
+<div id="chemical-used-bpa" class="section level2">
+<h2>Chemical used: BPA</h2>
+</div>
 <div id="subset-genes-with-log-fold-chagne-0.6-and-p-value-0.05" class="section level2">
 <h2>Subset genes with log fold chagne &gt; 0.6 and P value &lt;= 0.05</h2>
 <pre class="r"><code>gene_list &lt;- dataset$BPA &gt; 0.6 &amp; dataset$P.value &lt;= 0.05
@@ -316,39 +319,6 @@ res = spia(de=tmp, all=names(tmp), organism=&quot;mmu&quot;)</code></pre>
  return(out)
 }</code></pre>
 <pre class="r"><code>library(mygene)</code></pre>
-<pre><code>## Loading required package: GenomicFeatures</code></pre>
-<pre><code>## Loading required package: BiocGenerics</code></pre>
-<pre><code>## Loading required package: parallel</code></pre>
-<pre><code>## 
-## Attaching package: 'BiocGenerics'</code></pre>
-<pre><code>## The following objects are masked from 'package:parallel':
-## 
-##     clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
-##     clusterExport, clusterMap, parApply, parCapply, parLapply,
-##     parLapplyLB, parRapply, parSapply, parSapplyLB</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     IQR, mad, xtabs</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     anyDuplicated, append, as.data.frame, as.vector, cbind,
-##     colnames, do.call, duplicated, eval, evalq, Filter, Find, get,
-##     grep, grepl, intersect, is.unsorted, lapply, lengths, Map,
-##     mapply, match, mget, order, paste, pmax, pmax.int, pmin,
-##     pmin.int, Position, rank, rbind, Reduce, rownames, sapply,
-##     setdiff, sort, table, tapply, union, unique, unlist, unsplit</code></pre>
-<pre><code>## Loading required package: S4Vectors</code></pre>
-<pre><code>## Loading required package: stats4</code></pre>
-<pre><code>## Loading required package: IRanges</code></pre>
-<pre><code>## Loading required package: GenomeInfoDb</code></pre>
-<pre><code>## Loading required package: GenomicRanges</code></pre>
-<pre><code>## Loading required package: AnnotationDbi</code></pre>
-<pre><code>## Loading required package: Biobase</code></pre>
-<pre><code>## Welcome to Bioconductor
-## 
-##     Vignettes contain introductory material; view with
-##     'browseVignettes()'. To cite Bioconductor, see
-##     'citation(&quot;Biobase&quot;)', and for packages 'citation(&quot;pkgname&quot;)'.</code></pre>
 <pre class="r"><code>p &lt;- map2pathway(names(tmp), sep='&lt;br&gt;')</code></pre>
 <pre><code>## Finished</code></pre>
 <pre class="r"><code>p &lt;- na.omit(p)

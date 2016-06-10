@@ -26,6 +26,8 @@ dim(res)
 head(res)
 ```
 
+##SPIA two way evidence plot not included because no pathways under threshold = 0.05. 
+
 ##map2pathway function
 ```{r}
 map2pathway = function(id.list, scopes='entrezgene', pathway.src="kegg", sep=', '){
